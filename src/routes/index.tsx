@@ -1,24 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowRight, LockKeyhole, Lightbulb, ChevronRight, Mail, ShieldCheck } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { navigation, pageHead } from '@/lib/antigolpe/content';
+import shield from '@/assets/security-shield.png';
+export const Route = createFileRoute('/')({ head: () => pageHead('Proteção digital para todos', 'Identifique riscos, proteja seus dados e saiba como agir. Orientação gratuita contra golpes digitais, sem cadastro.'), component: Home });
+function Home() { return <>
+ <section className="home-intro"><div className="home-intro-copy"><span className="eyebrow"><span className="tiny-shield"><ShieldCheck size={13}/></span> SUA PROTEÇÃO COMEÇA COM INFORMAÇÃO</span><h1>AntiGolpe<span className="title-dot">.</span></h1><p>Identifique riscos. Proteja seus dados.<br/>Saiba como agir.</p><span className="intro-note"><LockKeyhole size={14}/> Ajuda gratuita, sem precisar de cadastro.</span></div><img className="hero-shield" src={shield} alt="Escudo azul com marca de proteção e mensagens verificadas" width={816} height={816}/></section>
+ <section className="help-section"><div className="help-heading"><div><h2>Como podemos ajudar?</h2><p>Escolha o que você precisa. Vamos direto ao ponto.</p></div><span className="small-label">INFORMAÇÃO PARA AGIR COM SEGURANÇA</span></div><div className="home-card-grid">{navigation.map(item => <article key={item.to} className={`help-card ${item.tone}`}><div className="help-card-top"><span className={`icon-tile ${item.tone}`}><item.icon size={25}/></span><ChevronRight size={19} className="card-chevron"/></div><h3>{item.title}</h3><p>{item.description}</p><Button asChild variant="link" className="card-action"><Link to={item.to}>{item.action}<ArrowRight size={16}/></Link></Button></article>)}</div></section>
+ <section className="daily-tip"><span className="tip-icon"><Lightbulb size={23}/></span><div><span className="tip-eyebrow">DICA PARA HOJE</span><h3>A pressa é amiga do golpe. Pare e confirme.</h3><p>Recebeu um pedido urgente de dinheiro? Confirme por outro canal antes de transferir.</p></div><span className="tip-pill">Um minuto pode fazer a diferença</span></section>
+ <div className="home-newsletter"><span><Mail size={17}/> Informação boa é proteção constante.</span><Link to="/prevencao" hash="dicas-semanais">Receba dicas semanais <ArrowRight size={15}/></Link></div>
+ </>; }
