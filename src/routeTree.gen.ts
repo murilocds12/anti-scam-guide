@@ -10,33 +10,73 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AjudaRouteImport } from './routes/ajuda'
+import { Route as GolpesRouteImport } from './routes/golpes'
+import { Route as PrevencaoRouteImport } from './routes/prevencao'
+import { Route as SuspeitoRouteImport } from './routes/suspeito'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AjudaRoute = AjudaRouteImport.update({
+  id: '/ajuda',
+  path: '/ajuda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GolpesRoute = GolpesRouteImport.update({
+  id: '/golpes',
+  path: '/golpes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrevencaoRoute = PrevencaoRouteImport.update({
+  id: '/prevencao',
+  path: '/prevencao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuspeitoRoute = SuspeitoRouteImport.update({
+  id: '/suspeito',
+  path: '/suspeito',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ajuda': typeof AjudaRoute
+  '/golpes': typeof GolpesRoute
+  '/prevencao': typeof PrevencaoRoute
+  '/suspeito': typeof SuspeitoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ajuda': typeof AjudaRoute
+  '/golpes': typeof GolpesRoute
+  '/prevencao': typeof PrevencaoRoute
+  '/suspeito': typeof SuspeitoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ajuda': typeof AjudaRoute
+  '/golpes': typeof GolpesRoute
+  '/prevencao': typeof PrevencaoRoute
+  '/suspeito': typeof SuspeitoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/ajuda' | '/golpes' | '/prevencao' | '/suspeito'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/ajuda' | '/golpes' | '/prevencao' | '/suspeito'
+  id: '__root__' | '/' | '/ajuda' | '/golpes' | '/prevencao' | '/suspeito'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AjudaRoute: typeof AjudaRoute
+  GolpesRoute: typeof GolpesRoute
+  PrevencaoRoute: typeof PrevencaoRoute
+  SuspeitoRoute: typeof SuspeitoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +88,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ajuda': {
+      id: '/ajuda'
+      path: '/ajuda'
+      fullPath: '/ajuda'
+      preLoaderRoute: typeof AjudaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/golpes': {
+      id: '/golpes'
+      path: '/golpes'
+      fullPath: '/golpes'
+      preLoaderRoute: typeof GolpesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prevencao': {
+      id: '/prevencao'
+      path: '/prevencao'
+      fullPath: '/prevencao'
+      preLoaderRoute: typeof PrevencaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/suspeito': {
+      id: '/suspeito'
+      path: '/suspeito'
+      fullPath: '/suspeito'
+      preLoaderRoute: typeof SuspeitoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AjudaRoute: AjudaRoute,
+  GolpesRoute: GolpesRoute,
+  PrevencaoRoute: PrevencaoRoute,
+  SuspeitoRoute: SuspeitoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
